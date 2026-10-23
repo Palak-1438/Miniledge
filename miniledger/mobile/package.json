@@ -1,0 +1,39 @@
+{
+  "name": "miniledger-mobile",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@react-native-community/datetimepicker": "9.2.1",
+    "@react-navigation/native": "^7.5.1",
+    "@react-navigation/native-stack": "^7.21.0",
+    "axios": "^1.20.0",
+    "expo": "~58.0.17",
+    "expo-constants": "~58.0.13",
+    "expo-secure-store": "~58.0.2",
+    "expo-status-bar": "~58.0.4",
+    "react": "19.3.0",
+    "react-native": "0.88.0",
+    "react-native-safe-area-context": "~5.10.1",
+    "react-native-screens": "~4.30.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-expo": "^58.0.4",
+    "prettier": "^3.9.10",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" App.tsx",
+    "bundle:check": "expo export --platform android --output-dir /tmp/miniledger-export",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" App.tsx",
+    "check": "npm run typecheck && npm run lint && npm run bundle:check"
+  },
+  "private": true
+}

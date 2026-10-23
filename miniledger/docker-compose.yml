@@ -1,0 +1,25 @@
+# PostgreSQL for local development.  Usage:  docker compose up -d
+# Reads POSTGRES_* from the repo-root .env (copy .env.example to .env first).
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: miniledger-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-miniledger}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-miniledger}
+    ports:
+      - '5432:5432'
+    volumes:
+      - miniledger_pgdata:/var/lib/postgresql/data
+      # Creates the separate test database on first start only (see docker/init-test-db.sh)
+      - ./docker/init-test-db.sh:/docker-entrypoint-initdb.d/init-test-db.sh:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-miniledger} -d ${POSTGRES_DB:-miniledger}']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  miniledger_pgdata:
